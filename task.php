@@ -24,4 +24,26 @@ function convert(int $usd, string $value){
         default: echo "Wrong currency given";
     }
 }
-convert(50, "Gbp");
+//convert(50, "Gbp");
+
+function convertator(int $usd, string $currency){
+    $currencyName = trim(strtoupper($currency));
+
+    function getCurr(string $value){
+        $json = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=USD_".$value."&compact=y");
+        $arr = json_decode($json,true);
+        $rate = $arr["USD_". $value]['val'];
+        return $rate;
+    }
+
+    switch ($currencyName){
+        case "UAH": $rate = getCurr("UAH");
+            echo "Price in UAH = ". $rate * $usd;break;
+        case "EUR": $rate = getCurr("EUR");
+            echo "Price in EUR = ". $rate * $usd;break;
+        case "GBP": $rate = getCurr("GBP");
+            echo "Price in GBP = ". $rate * $usd;break;
+        default: echo "Wrong currency given";
+    }
+}
+convertator(50, "eur   ");
