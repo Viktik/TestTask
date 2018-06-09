@@ -60,9 +60,3 @@ class Converter
         return $rate;
     }
 }
-$converter = new Converter();
-try {
-    echo $converter->convert(50, "eur");
-}catch(Exception $e) {
-    echo $e->getMessage();
-}
